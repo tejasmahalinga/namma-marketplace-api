@@ -25,7 +25,7 @@ export class CategoryController {
 
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     const response=this.categoryServices.createCategory(createCategoryDto)
-    return 'post catgeuory success';
+    return 'created category successfully';
   }
 
   @Put("/:id")
