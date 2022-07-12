@@ -1,26 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { CreateProductDto } from "./dto/create-product.dto";
+import { UpdateProductDto } from "./dto/update-product.dto";
+import { Product } from "./entities/product.entity";
 
 @Injectable()
 export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>
+  ) {}
+
+  async create(createProductDto: CreateProductDto) {
+    const productData = this.productRepository.create(createProductDto);
+    const response = await this.productRepository.save(productData);
+    return "successfully created product";
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    const response = await this.productRepository.find();
+    return response;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number) {
+    const response = await this.productRepository.findOne({ where: { id } });
+    if (!response) {
+      throw new NotFoundException();
+    }
+    return response;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    // const response = this.productRepository.create(updateProductDto);
+    const saving = await this.productRepository.update(id, updateProductDto);
+    return `Product updated successfully`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    const response = await this.productRepository.delete(id);
+    return `Deleted ${id} successfully`;
   }
 }

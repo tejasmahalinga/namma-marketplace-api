@@ -5,6 +5,7 @@ import { CategoryModule } from "./category/category.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import entities from "./typeOrm";
+import { ProductsModule } from "./products/products.module";
 
 @Module({
   imports: [
@@ -13,17 +14,18 @@ import entities from "./typeOrm";
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: "postgres",
-        host:configService.get('DB_HOST'),
+        host: configService.get("DB_HOST"),
         port: +configService.get<number>("DB_PORT"),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
+        username: configService.get("DB_USERNAME"),
+        password: configService.get("DB_PASSWORD"),
+        database: configService.get("DB_NAME"),
         entities: entities,
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     CategoryModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
