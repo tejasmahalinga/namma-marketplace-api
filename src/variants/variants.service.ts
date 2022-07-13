@@ -36,7 +36,8 @@ export class VariantsService {
     return response;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} variant`;
+  async remove(id: number) {
+    const response = await this.variantRepository.delete(id);
+    return `deleted successfully`;
   }
 }
