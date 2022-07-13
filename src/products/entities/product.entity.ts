@@ -11,6 +11,9 @@ export class Product {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  category_id: number;
+
   @Column()
   manufacturer: string;
 }

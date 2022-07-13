@@ -7,4 +7,6 @@ export class CreateProductDto {
   description: string;
 
   manufacturer: string;
+
+  category_id: number;
 }
