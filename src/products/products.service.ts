@@ -15,6 +15,7 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto) {
     const productData = this.productRepository.create(createProductDto);
     const response = await this.productRepository.save(productData);
+    console.log("CREATED>>>>", productData);
     return "successfully created product";
   }
 
