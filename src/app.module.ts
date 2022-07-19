@@ -7,6 +7,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import entities from "./typeOrm";
 import { ProductsModule } from "./products/products.module";
 import { VariantsModule } from './variants/variants.module';
+import { SellersModule } from './sellers/sellers.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { VariantsModule } from './variants/variants.module';
     CategoryModule,
     ProductsModule,
     VariantsModule,
+    SellersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

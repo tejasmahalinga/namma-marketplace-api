@@ -22,7 +22,8 @@ export class VariantsController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Param("productId") productId: string) {
+    console.log("productId in variants s>>>", productId);
     return this.variantsService.findAll();
   }
 
