@@ -12,16 +12,21 @@ export class SellersService {
     private readonly sellerRepository: Repository<Seller>
   ) {}
 
-  create(createSellerDto: CreateSellerDto) {
-    return "This action adds a new seller";
+  async create(createSellerDto: CreateSellerDto) {
+    const sellerData = this.sellerRepository.create(createSellerDto);
+    const response = await this.sellerRepository.save(sellerData);
+
+    return "successfully created seller";
   }
 
-  findAll() {
-    return `This action returns all sellers`;
+  async findAll() {
+    const response = await this.sellerRepository.find();
+    return response;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} seller`;
+  async findOne(id: number) {
+    const response = await this.sellerRepository.find({ where: { id: id } });
+    return response;
   }
 
   update(id: number, updateSellerDto: UpdateSellerDto) {
