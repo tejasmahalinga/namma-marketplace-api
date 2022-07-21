@@ -29,8 +29,9 @@ export class SellersService {
     return response;
   }
 
-  update(id: number, updateSellerDto: UpdateSellerDto) {
-    return `This action updates a #${id} seller`;
+  async update(id: number, updateSellerDto: UpdateSellerDto) {
+    const response = await this.sellerRepository.update(id, updateSellerDto);
+    return `Seller updated successfully`;
   }
 
   remove(id: number) {
