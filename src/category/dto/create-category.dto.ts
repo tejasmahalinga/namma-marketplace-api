@@ -1,1 +1,5 @@
-export class CreateCategoryDto {}
+export class CreateCategoryDto {
+  name: string;
+  // parentId: number;
+  // isActive: boolean;
+}

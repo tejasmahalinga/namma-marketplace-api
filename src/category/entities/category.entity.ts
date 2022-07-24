@@ -5,18 +5,18 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   parentId: number;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   createdOn: string;
 
-  @Column()
+  @Column({ nullable: true })
   modifiedOn: string;
 }
