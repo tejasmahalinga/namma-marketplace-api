@@ -8,5 +8,5 @@ export class CreateProductDto {
 
   manufacturer: string;
 
-  category_id: number;
+  categoryId: number;
 }

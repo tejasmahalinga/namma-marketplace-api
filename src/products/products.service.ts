@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { CategoryService } from "src/category/category.service";
+import { Category } from "src/category/entities/category.entity";
 import { Repository } from "typeorm";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
@@ -9,13 +11,23 @@ import { Product } from "./entities/product.entity";
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>
+    private readonly productRepository: Repository<Product>,
+    private categoryService: CategoryService
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    const productData = this.productRepository.create(createProductDto);
+    const categoryData = await this.categoryService.findOne(
+      createProductDto.categoryId
+    );
+    console.log("catgeoryDATS?????>>>>>>", categoryData);
+
+    const productData = this.productRepository.create({
+      ...createProductDto,
+      category: categoryData,
+    });
+
     const response = await this.productRepository.save(productData);
-    // console.log("CREATED>>>>", productData);
+    console.log("CREATED>>>> CATGEORUY IDD", createProductDto.categoryId);
     return "successfully created product";
   }
 
