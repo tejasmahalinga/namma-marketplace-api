@@ -1,13 +1,17 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CategoryModule } from "./category/category.module";
+
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import entities from "./typeOrm";
 import { ProductsModule } from "./products/products.module";
-import { VariantsModule } from './variants/variants.module';
-import { SellersModule } from './sellers/sellers.module';
+import { VariantsModule } from "./variants/variants.module";
+import { SellersModule } from "./sellers/sellers.module";
+import { CategoryModule } from "./category/category.module";
+import { Category } from "./category/entities/category.entity";
+import { Product } from "./products/entities/product.entity";
+import { Seller } from "./sellers/entities/seller.entity";
+import { Variant } from "./variants/entities/variant.entity";
 
 @Module({
   imports: [
@@ -21,7 +25,7 @@ import { SellersModule } from './sellers/sellers.module';
         username: configService.get("DB_USERNAME"),
         password: configService.get("DB_PASSWORD"),
         database: configService.get("DB_NAME"),
-        entities: entities,
+        entities: [Category, Product, Seller, Variant],
         synchronize: true,
       }),
       inject: [ConfigService],
