@@ -15,6 +15,6 @@ export class Product {
   @Column()
   manufacturer: string;
 
-  @ManyToOne(() => Category, (category) => category.product)
+  @ManyToOne(() => Category, (category: Category) => category.products)
   category: Category;
 }

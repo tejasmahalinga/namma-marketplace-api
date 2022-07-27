@@ -1,9 +1,14 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  NotFoundException,
+  SerializeOptions,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CategoryService } from "src/category/category.service";
 import { Category } from "src/category/entities/category.entity";
 import { Repository } from "typeorm";
 import { CreateProductDto } from "./dto/create-product.dto";
+import { ProductResponseDto } from "./dto/product-response.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { Product } from "./entities/product.entity";
 
@@ -21,10 +26,8 @@ export class ProductsService {
     );
     console.log("catgeoryDATS?????>>>>>>", categoryData);
 
-    const productData = this.productRepository.create({
-      ...createProductDto,
-      category: categoryData,
-    });
+    const productData = this.productRepository.create(createProductDto);
+    productData.category = categoryData;
 
     const response = await this.productRepository.save(productData);
     console.log("CREATED>>>> CATGEORUY IDD", createProductDto.categoryId);
@@ -32,10 +35,12 @@ export class ProductsService {
   }
 
   async findAll() {
-    const response = await this.productRepository.find();
+    const response = await this.productRepository.find({
+      relations: { category: true },
+    });
     return response;
   }
-
+  // @SerializeOptions()
   async findOne(id: number) {
     const response = await this.productRepository.findOne({ where: { id } });
     if (!response) {

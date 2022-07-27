@@ -21,6 +21,6 @@ export class Category {
   @Column({ nullable: true })
   modifiedOn: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  product: Product[];
+  @OneToMany(() => Product, (product: Product) => product.category)
+  products: Product[];
 }
