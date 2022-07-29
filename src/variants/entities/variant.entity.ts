@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/products/entities/product.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Variant {
@@ -9,11 +10,11 @@ export class Variant {
   sku: string;
 
   @Column()
-  variant_qty: number;
+  variantQty: number;
 
   @Column()
   unit: string;
 
-  @Column()
-  product_id: number;
+  @ManyToOne(() => Product, (product) => product.variants)
+  product: Product;
 }

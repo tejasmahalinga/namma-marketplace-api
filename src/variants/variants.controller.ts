@@ -17,8 +17,11 @@ export class VariantsController {
   constructor(private readonly variantsService: VariantsService) {}
 
   @Post()
-  create(@Body() createVariantDto: CreateVariantDto) {
-    return this.variantsService.create(createVariantDto);
+  create(
+    @Body() createVariantDto: CreateVariantDto,
+    @Param("productId") productId: string
+  ) {
+    return this.variantsService.create(createVariantDto, +productId);
   }
 
   @Get()

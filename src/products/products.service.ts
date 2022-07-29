@@ -36,7 +36,7 @@ export class ProductsService {
 
   async findAll() {
     const response = await this.productRepository.find({
-      relations: { category: true },
+      relations: { category: true, variants: true },
     });
     return response;
   }
