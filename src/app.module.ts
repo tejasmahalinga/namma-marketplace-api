@@ -11,6 +11,7 @@ import { Category } from "./category/entities/category.entity";
 import { Product } from "./products/entities/product.entity";
 import { Seller } from "./sellers/entities/seller.entity";
 import { Variant } from "./variants/entities/variant.entity";
+import { CustomersModule } from './customers/customers.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { Variant } from "./variants/entities/variant.entity";
     ProductsModule,
     VariantsModule,
     SellersModule,
+    CustomersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
